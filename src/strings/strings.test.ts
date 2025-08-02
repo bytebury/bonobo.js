@@ -1,5 +1,12 @@
 import { describe, expect, test } from "vitest";
-import { isNullOrWhitespace, titleCase } from "./strings";
+import {
+	isNullOrWhitespace,
+	kebabCase,
+	lowerCase,
+	snakeCase,
+	titleCase,
+	upperCase,
+} from "./strings";
 
 describe("#isNullOrWhitespace", () => {
 	test('should return true when the string is ""', () => {
@@ -34,5 +41,35 @@ describe("#titleCase", () => {
 
 	test('should return "Kebab-case" for "kebab-case"', () => {
 		expect(titleCase("kebab-case")).toBe("Kebab-case");
+	});
+});
+
+describe("#upperCase", () => {
+	test("should convert the string to all uppercase", () => {
+		expect(upperCase("hello world")).toBe("HELLO WORLD");
+	});
+});
+
+describe("#lowerCase", () => {
+	test("should convert the string to all lowercase", () => {
+		expect(lowerCase("HELLO World")).toBe("hello world");
+	});
+});
+
+describe("#kebabCase", () => {
+	test("should return the kebab-case version of any given string", () => {
+		expect(kebabCase("HELLO WORLD!")).toBe("hello-world");
+		expect(kebabCase(" THIS STRING   HAS WEIRD spacing")).toBe(
+			"this-string-has-weird-spacing",
+		);
+	});
+});
+
+describe("#snake_case", () => {
+	test("should return the snake_case version of any given string", () => {
+		expect(snakeCase("HELLO WORLD!!")).toBe("hello_world");
+		expect(snakeCase(" THIS STRING    HAS weird spacing?")).toBe(
+			"this_string_has_weird_spacing",
+		);
 	});
 });

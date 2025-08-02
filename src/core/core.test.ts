@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { bool, isEmpty, isNull, reverse, stringify } from "./core";
+import { bool, clone, isEmpty, isNull, reverse, stringify } from "./core";
 
 describe("#stringify", () => {
 	test("should stringify a primitive to a string", () => {
@@ -56,6 +56,19 @@ describe("#reverse", () => {
 
 	test("should reverse the list", () => {
 		expect(reverse([1, 2, 3])).toStrictEqual([3, 2, 1]);
+	});
+});
+
+describe("#clone", () => {
+	test("should clone the given object into an exact replica", () => {
+		const firstObject = { foo: "bar", baz: "foo" };
+		const cloned = clone(firstObject);
+
+		expect(firstObject).toStrictEqual(cloned);
+
+		cloned.baz = "bar";
+
+		expect(firstObject).not.toStrictEqual(cloned);
 	});
 });
 
