@@ -1,6 +1,6 @@
 {
 	"name": "@bytebury/bonobo",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"description": "A civilized and peaceful utility library for TypeScript and ECMAScript",
 	"main": "dist/index.js",
 	"exports": {
@@ -11,7 +11,8 @@
 	"scripts": {
 		"test": "vitest --coverage",
 		"build": "tsc",
-		"package": "npm run build && npm pack"
+		"package": "npm run build && npm pack",
+		"publish": "npm run package && npm publish"
 	},
 	"repository": {
 		"type": "git",
@@ -22,6 +23,9 @@
 	"bugs": {
 		"url": "https://github.com/bytebury/bonobo.js/issues"
 	},
+	"files": [
+		"dist"
+	],
 	"homepage": "https://github.com/bytebury/bonobo.js#readme",
 	"devDependencies": {
 		"@biomejs/biome": "^2.1.3",
