@@ -10,7 +10,9 @@ npm install --save @bytebury/bonobo
 ## Sample Usage
 
 ```js
-import { reverse, isNullOrWhitespace, titleCase, bool } from "@bytebury/bonobo"
+import { reverse, bool } from "@bytebury/bonobo";
+import { isNullOrWhitespace, titleCase } from "@bytebury/bonobo/strings";
+import { yearsBetween, today, date } from "@bytebury/bonobo/dates";
 
 function isPalindrome(text) {
   return reverse(text) === text;
@@ -21,7 +23,11 @@ function sayHello(name) {
     console.log("Hello, Guest.");
     return;
   }
-  console.log(`Hello, ${titleCase(name)}`);
+  console.log(`Hello, ${titleCase(name)}.`);
+}
+
+function isOver18() {
+  return yearsBetween(today(), date("2000-06-01"));
 }
 
 // Sometimes, APIs will return booleans as text (for whatever reason).
