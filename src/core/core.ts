@@ -64,6 +64,8 @@ export function clone<T>(thing: T): T {
  * reverse('Apple'); // "elppA"
  * reverse([1, 2, 3]); // [3, 2, 1]
  */
+export function reverse(thing: string): string;
+export function reverse<T>(thing: T[]): T[];
 export function reverse<T>(thing: string | T[]): string | T[] {
 	if (typeof thing === "string") {
 		return String(thing).split("").reverse().join("");
