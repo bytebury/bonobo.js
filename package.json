@@ -1,12 +1,25 @@
 {
 	"name": "@bytebury/bonobo",
-	"version": "0.0.5",
+	"version": "0.0.6",
 	"description": "A civilized and peaceful utility library for TypeScript and ECMAScript",
 	"main": "dist/index.js",
 	"exports": {
-		".": "./dist/index.js",
-		"./strings": "./dist/strings.js",
-		"./dates": "./dist/dates.js"
+		".": {
+			"import": "./dist/index.js",
+			"types": "./dist/index.d.ts"
+		},
+		"./strings": {
+			"import": "./dist/strings/strings.js",
+			"types": "./dist/strings/strings.d.ts"
+		},
+		"./dates": {
+			"import": "./dist/dates/dates.js",
+			"types": "./dist/dates/dates.d.ts"
+		},
+		"./types": {
+			"import": "./dist/types/types.js",
+			"types": "./dist/types/types.d.ts"
+		}
 	},
 	"scripts": {
 		"test": "vitest --coverage",
