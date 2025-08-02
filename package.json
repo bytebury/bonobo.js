@@ -11,7 +11,7 @@
 	"scripts": {
 		"test": "vitest --coverage",
 		"build": "tsc",
-		"package": "npm run docs && npm run build && npm pack",
+		"package": "npm run build && npm pack",
 		"publish": "npm run package && npm publish",
 		"docs": "typedoc"
 	},
