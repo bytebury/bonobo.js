@@ -7,6 +7,9 @@
 npm install --save @bytebury/bonobo
 ```
 
+## Documentation
+https://bytebury.github.io/bonobo.js/
+
 ## Sample Usage
 
 ```js
