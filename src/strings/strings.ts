@@ -28,7 +28,9 @@ export function snakeCase<T>(text: T): string {
 }
 
 function removePunctuation<T>(text: T): string {
-	return String(text).replace(/[^a-zA-Z0-9\s]/g, "");
+	return String(text)
+		.normalize("NFKD")
+		.replace(/[^a-zA-Z0-9\s]/g, "");
 }
 
 function isNull<T>(thing: T): boolean {
