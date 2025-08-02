@@ -17,7 +17,7 @@ https://bytebury.github.io/bonobo.js/
 ```js
 import { reverse, isEmpty } from "@bytebury/bonobo";
 import { yearsBetween, today } from "@bytebury/bonobo/dates";
-import { ValuesOf } from "@bytebury/bonobo/types";
+import { ValueOf } from "@bytebury/bonobo/types";
 
 function isPalindrome(text: string): boolean {
   return reverse(text) === text;
@@ -25,7 +25,7 @@ function isPalindrome(text: string): boolean {
 
 const Fruits = ["apple", "banana", "orange"] as const;
 
-function eat(fruits: ValuesOf<typeof Fruits>[]): void {
+function eat(fruits: ValueOf<typeof Fruits>[]): void {
   if (isEmpty(fruits)) {
     console.log('you need to eat at least one fruit');
     return;

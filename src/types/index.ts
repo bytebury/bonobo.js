@@ -7,15 +7,15 @@
  * const MyEnum = { foo: 'bar', another: 'baz' } as const;
  * const MyList = ['apple', 'banana', 'orange'] as const;
  *
- * function example(param: KeysOf<typeof MyEnum>): void {
+ * function example(param: KeyOf<typeof MyEnum>): void {
  *   // param would be: "foo" | "another"
  * }
  *
- * function example2(param: KeysOf<typeof MyList): void {
+ * function example2(param: KeyOf<typeof MyList): void {
  *   // param would be: "apple" | "banana" | "orange"
  * }
  */
-export type KeysOf<T> = T extends readonly unknown[] ? ValuesOf<T> : keyof T;
+export type KeyOf<T> = T extends readonly unknown[] ? ValueOf<T> : keyof T;
 
 /**
  * This is a utility type that allows you to get the values from an object
@@ -25,15 +25,15 @@ export type KeysOf<T> = T extends readonly unknown[] ? ValuesOf<T> : keyof T;
  * const MyEnum = { foo: 'bar', another: 'baz' } as const;
  * const MyList = ['apple', 'banana', 'orange'] as const;
  *
- * function example(param: ValuesOf<typeof MyEnum>): void {
+ * function example(param: ValueOf<typeof MyEnum>): void {
  *   // param would be: "bar" | "baz"
  * }
  *
- * function example2(param: ValuesOf<typeof MyList): void {
+ * function example2(param: ValueOf<typeof MyList): void {
  *   // param would be: "apple" | "banana" | "orange"
  * }
  */
-export type ValuesOf<T> = T extends readonly unknown[] ? T[number] : T[keyof T];
+export type ValueOf<T> = T extends readonly unknown[] ? T[number] : T[keyof T];
 
 /**
  * This is a utility type that allows you to Autocomplete a string.
