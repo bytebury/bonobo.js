@@ -27,7 +27,7 @@ function sayHello(name) {
 }
 
 function isOver18() {
-  return yearsBetween(today(), new Date("2000-06-01"));
+  return yearsBetween(today(), new Date("2000-06-01")) >= 18;
 }
 
 // Sometimes, APIs will return booleans as text (for whatever reason).
