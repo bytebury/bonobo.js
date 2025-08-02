@@ -1,4 +1,4 @@
-import { isNullOrWhitespace } from "../strings";
+import { isNullOrWhitespace, lowerCase } from "../strings";
 
 export function stringify<T>(thing: T): string {
 	if (typeof thing === "object") {
@@ -8,7 +8,7 @@ export function stringify<T>(thing: T): string {
 }
 
 export function bool<T>(thing: T | T[]): boolean {
-	const text = String(thing).toLowerCase().trim();
+	const text = lowerCase(String(thing)).trim();
 
 	if (text === "false" || isNullOrWhitespace(String(text)) || text === "0") {
 		return false;
@@ -32,6 +32,6 @@ export function isEmpty<T>(thing: string | T[]): boolean {
 }
 
 export function isNull<T>(thing: T): boolean {
-	const text = String(thing).toLowerCase();
+	const text = lowerCase(thing).trim();
 	return text === "null" || text === "undefined";
 }

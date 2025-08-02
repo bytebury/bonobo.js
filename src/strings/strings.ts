@@ -1,10 +1,8 @@
-import { isNull } from "../core";
-
 export function isNullOrWhitespace(text: string | null | undefined): boolean {
 	return isNull(text) || String(text).trim().length === 0;
 }
 
-export function titleCase(text: string): string {
+export function titleCase<T>(text: T): string {
 	return lowerCase(text)
 		.split(" ")
 		.map((word) => {
@@ -13,22 +11,27 @@ export function titleCase(text: string): string {
 		.join(" ");
 }
 
-export function lowerCase(text: string): string {
+export function lowerCase<T>(text: T): string {
 	return String(text).toLowerCase();
 }
 
-export function upperCase(text: string): string {
+export function upperCase<T>(text: T): string {
 	return String(text).toUpperCase();
 }
 
-export function kebabCase(text: string): string {
+export function kebabCase<T>(text: T): string {
 	return removePunctuation(lowerCase(text)).trim().replace(/\s+/g, "-");
 }
 
-export function snakeCase(text: string): string {
+export function snakeCase<T>(text: T): string {
 	return kebabCase(text).replace(/-/g, "_");
 }
 
-function removePunctuation(text: string): string {
-	return text.replace(/[^a-zA-Z0-9\s]/g, "");
+function removePunctuation<T>(text: T): string {
+	return String(text).replace(/[^a-zA-Z0-9\s]/g, "");
+}
+
+function isNull<T>(thing: T): boolean {
+	const text = lowerCase(thing).trim();
+	return text === "null" || text === "undefined";
 }
