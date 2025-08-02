@@ -1,4 +1,5 @@
 # bonobo.js
+
 🙊 A civilized and peaceful utility library for TypeScript and ECMAScript.
 
 ## Installation
@@ -8,41 +9,31 @@ npm install --save @bytebury/bonobo
 ```
 
 ## Documentation
+
 https://bytebury.github.io/bonobo.js/
 
 ## Sample Usage
 
 ```js
-import { reverse, bool } from "@bytebury/bonobo";
-import { isNullOrWhitespace, titleCase } from "@bytebury/bonobo/strings";
+import { reverse, isEmpty } from "@bytebury/bonobo";
 import { yearsBetween, today } from "@bytebury/bonobo/dates";
+import { ValuesOf } from "@bytebury/bonobo/types";
 
-function isPalindrome(text) {
+function isPalindrome(text: string): boolean {
   return reverse(text) === text;
 }
 
-function sayHello(name) {
-  if (isNullOrWhitespace(name)) {
-    console.log("Hello, Guest.");
+const Fruits = ["apple", "banana", "orange"] as const;
+
+function eat(fruits: ValuesOf<typeof Fruits>[]): void {
+  if (isEmpty(fruits)) {
+    console.log('you need to eat at least one fruit');
     return;
   }
-  console.log(`Hello, ${titleCase(name)}.`);
+  console.log(`You ate: ${fruits.join(', ')}.`)
 }
 
 function isOver18() {
   return yearsBetween(today(), new Date("2000-06-01")) >= 18;
 }
-
-// Sometimes, APIs will return booleans as text (for whatever reason).
-function legacyApi() {
-  const user = { name: "Baboon", isAdmin: "false" };
-
-  if (bool(user.isAdmin)) { // this is false
-    console.log("User is an admin!");
-    return
-  }
-  console.log("User is not an admin!"); // in this example this outputs!
-}
-
-
 ```
