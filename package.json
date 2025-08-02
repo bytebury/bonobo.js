@@ -1,11 +1,12 @@
 {
 	"name": "@bytebury/bonobo",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"description": "A civilized and peaceful utility library for TypeScript and ECMAScript",
 	"main": "dist/index.js",
 	"exports": {
 		".": "./dist/index.js",
-		"./strings": "./dist/strings.js"
+		"./strings": "./dist/strings.js",
+		"./dates": "./dist/dates.js"
 	},
 	"scripts": {
 		"test": "vitest --coverage",
