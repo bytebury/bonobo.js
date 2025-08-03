@@ -24,7 +24,6 @@
 		"test": "vitest --coverage",
 		"build": "tsc",
 		"package": "npm run build && npm pack",
-		"publish": "npm run package && npm publish",
 		"docs": "typedoc"
 	},
 	"repository": {
