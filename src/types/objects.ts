@@ -15,7 +15,7 @@
  *   // param would be: "apple" | "banana" | "orange"
  * }
  */
-export type KeyOf<T> = T extends readonly unknown[] ? ValueOf<T> : keyof T;
+export type KeyOf<T> = T extends UnknownList ? ValueOf<T> : keyof T;
 
 /**
  * This is a utility type that allows you to get the values from an object
@@ -33,7 +33,7 @@ export type KeyOf<T> = T extends readonly unknown[] ? ValueOf<T> : keyof T;
  *   // param would be: "apple" | "banana" | "orange"
  * }
  */
-export type ValueOf<T> = T extends readonly unknown[] ? T[number] : T[keyof T];
+export type ValueOf<T> = T extends UnknownList ? T[number] : T[keyof T];
 
 /**
  * Represents an object with `unknown` value. This is typically
