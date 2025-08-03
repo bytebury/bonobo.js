@@ -37,6 +37,8 @@ describe("#isNullOrWhitespace", () => {
 describe("#titleCase", () => {
 	test("should return 'Sir Isaac Newton' for 'siR isAAC newTON'", () => {
 		expect(titleCase("siR isAAC newTON")).toBe("Sir Isaac Newton");
+		expect(titleCase(kebabCase("Sir Isaac Newton"))).toBe("Sir-isaac-newton");
+		expect(titleCase(snakeCase("Sir Isaac Newton"))).toBe("Sir Isaac Newton");
 	});
 
 	test('should return "Kebab-case" for "kebab-case"', () => {
@@ -59,6 +61,9 @@ describe("#lowerCase", () => {
 describe("#kebabCase", () => {
 	test("should return the kebab-case version of any given string", () => {
 		expect(kebabCase("HELLO WORLD!")).toBe("hello-world");
+		expect(kebabCase("snake_case_to_kebab-case")).toBe(
+			"snake-case-to-kebab-case",
+		);
 		expect(kebabCase(" THIS STRING   HAS WEIRD spacing")).toBe(
 			"this-string-has-weird-spacing",
 		);
@@ -68,6 +73,9 @@ describe("#kebabCase", () => {
 describe("#snake_case", () => {
 	test("should return the snake_case version of any given string", () => {
 		expect(snakeCase("HELLO WORLD!!")).toBe("hello_world");
+		expect(snakeCase("kebab-case-to-snake-case")).toBe(
+			"kebab_case_to_snake_case",
+		);
 		expect(snakeCase(" THIS STRING    HAS weird spacing?")).toBe(
 			"this_string_has_weird_spacing",
 		);

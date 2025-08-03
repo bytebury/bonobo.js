@@ -66,21 +66,17 @@ export function subtractYears(date: Date, years: number): Date {
  * Calculates the days between two dates.
  */
 export function daysBetween(start: Date, end: Date): number {
-	const startTime = new Date(start).getTime();
-	const endTime = new Date(end).getTime();
-
-	return Math.abs(Math.floor((endTime - startTime) / Duration.days(1)));
+	return Math.abs(
+		Math.floor((end.getTime() - start.getTime()) / Duration.days(1)),
+	);
 }
 
 /**
  * Calculates the months between two dates.
  */
 export function monthsBetween(start: Date, end: Date): number {
-	const startDate = new Date(start);
-	const endDate = new Date(end);
-
-	const years = endDate.getFullYear() - startDate.getFullYear();
-	const months = endDate.getMonth() - startDate.getMonth();
+	const years = end.getFullYear() - start.getFullYear();
+	const months = end.getMonth() - start.getMonth();
 
 	return Math.abs(years * 12 + months);
 }

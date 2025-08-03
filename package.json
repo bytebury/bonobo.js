@@ -17,7 +17,6 @@
 			"types": "./dist/dates/dates.d.ts"
 		},
 		"./types": {
-			"import": "./dist/types/index.js",
 			"types": "./dist/types/index.d.ts"
 		}
 	},

@@ -36,15 +36,14 @@ export type KeyOf<T> = T extends readonly unknown[] ? ValueOf<T> : keyof T;
 export type ValueOf<T> = T extends readonly unknown[] ? T[number] : T[keyof T];
 
 /**
- * This is a utility type that allows you to Autocomplete a string.
- *
- * For example, let's say you have a situation where you would like an input
- * autocompleted with suggestion, but you also want people to be able to type
- * whatever they want. This would come in handy.
- *
- * @example
- * function setUserRole(role: AutoComplete<'free' | 'paid' | 'admin'>): void {
- *  // omitted
- * }
+ * Represents an object with `unknown` value. This is typically
+ * a better usecase than just using `{}`.
  */
-export type AutoComplete<T extends string> = T | (string & {});
+export type UnknownRecord = Record<PropertyKey, unknown>;
+
+/**
+ * Represents a list with `unknown` values. Useful for when you
+ * want a type that all ararys can be assigned to, but you don't care
+ * about the value.
+ */
+export type UnknownList = readonly unknown[];
