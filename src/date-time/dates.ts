@@ -1,4 +1,4 @@
-export type Milliseconds = number;
+import { Duration } from "./duration";
 
 export function now(): Date {
 	return new Date();
@@ -64,20 +64,16 @@ export function subtractYears(date: Date, years: number): Date {
 
 /**
  * Calculates the days between two dates.
- *
- * @note the number returned will always be positive.
  */
 export function daysBetween(start: Date, end: Date): number {
 	const startTime = new Date(start).getTime();
 	const endTime = new Date(end).getTime();
 
-	return Math.abs(Math.floor((endTime - startTime) / days(1)));
+	return Math.abs(Math.floor((endTime - startTime) / Duration.days(1)));
 }
 
 /**
  * Calculates the months between two dates.
- *
- * @note the number returned will always be positive.
  */
 export function monthsBetween(start: Date, end: Date): number {
 	const startDate = new Date(start);
@@ -96,8 +92,6 @@ export function monthsBetween(start: Date, end: Date): number {
  * @example
  * yearsBetween(new Date('2007-08-01', '2008-07-31')); // 0
  * yearsBetween(new Date('2007-08-01', '2008-08-01')); // 1
- *
- * @note the number returned will always be positive.
  */
 export function yearsBetween(start: Date, end: Date): number {
 	const years = end.getFullYear() - start.getFullYear();
@@ -117,32 +111,4 @@ export function yearsBetween(start: Date, end: Date): number {
 	}
 
 	return Math.abs(years);
-}
-
-/**
- * Converts seconds to milliseconds.
- */
-export function seconds(seconds: number): Milliseconds {
-	return seconds * 1_000;
-}
-
-/**
- * Converts minutes to milliseconds.
- */
-export function minutes(minutes: number): Milliseconds {
-	return seconds(minutes * 60);
-}
-
-/**
- * Converts hours to milliseconds.
- */
-export function hours(hours: number): Milliseconds {
-	return minutes(hours * 60);
-}
-
-/**
- * Converts days to milliseconds.
- */
-export function days(days: number): Milliseconds {
-	return hours(days * 24);
 }
