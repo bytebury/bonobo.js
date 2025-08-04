@@ -33,7 +33,7 @@ function eat(fruits: ValueOf<typeof Fruits>[]): void {
   console.log(`You ate: ${fruits.join(', ')}.`)
 }
 
-function isOver18() {
+function isOver18(): boolean {
   return yearsBetween(today(), new Date("2000-06-01")) >= 18;
 }
 ```
