@@ -1,4 +1,4 @@
-import { isNullOrWhitespace, lowerCase } from "../strings";
+import { isNullOrWhitespace, lower } from "../strings";
 
 /**
  * Compares two things by turning them into strings, trimming them,
@@ -33,8 +33,8 @@ export function isEqual(thing1: unknown, thing2: unknown): boolean {
  * isEqual(false, "FALSE"); // true
  */
 export function isEqualIgnoreCase(thing1: unknown, thing2: unknown): boolean {
-	thing1 = lowerCase(stringify(thing1).trim());
-	thing2 = lowerCase(stringify(thing2).trim());
+	thing1 = lower(stringify(thing1).trim());
+	thing2 = lower(stringify(thing2).trim());
 
 	return thing1 === thing2;
 }
@@ -76,7 +76,7 @@ export function stringify<T>(thing: T): string {
  * bool("Hello World"); // true
  */
 export function bool<T>(thing: T | T[]): boolean {
-	const text = lowerCase(String(thing)).trim();
+	const text = lower(String(thing)).trim();
 
 	if (text === "false" || isNullOrWhitespace(String(text)) || text === "0") {
 		return false;
@@ -141,6 +141,6 @@ export function isEmpty<T>(thing: string | T[]): boolean {
  * isNull(false); // false
  */
 export function isNull<T>(thing: T): boolean {
-	const text = lowerCase(thing).trim();
+	const text = lower(thing).trim();
 	return text === "null" || text === "undefined";
 }
