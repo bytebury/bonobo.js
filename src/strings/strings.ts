@@ -54,9 +54,7 @@ export function titleize<T>(text: T): string {
 	return lower(text)
 		.replace(/_/g, " ")
 		.split(" ")
-		.map((word) => {
-			return upper(word.charAt(0)) + word.slice(1);
-		})
+		.map((word) => upper(word.charAt(0)) + word.slice(1))
 		.join(" ");
 }
 
