@@ -13,7 +13,7 @@
  * isNullOrWhitespace("  .  "); // false
  */
 export function isNullOrWhitespace(text: string | null | undefined): boolean {
-	return isNull(text) || String(text).trim().length === 0;
+	return isNull(text) || trim(text as string).length === 0;
 }
 
 /**
@@ -36,7 +36,7 @@ export function isNotNullOrWhitespace(
  * [' hello ', ' world '].map(trim); // ['hello', 'world'];
  */
 export function trim(text: string): string {
-	return text.trim();
+	return String(text).trim();
 }
 
 /**
@@ -76,7 +76,7 @@ export function upper<T>(text: T): string {
  * Convert the string to kebab-case.
  */
 export function kebab<T>(text: T): string {
-	return removePunctuation(lower(text)).trim().replace(/\s+/g, "-");
+	return trim(removePunctuation(lower(text))).replace(/\s+/g, "-");
 }
 
 /**
@@ -95,6 +95,6 @@ function removePunctuation<T>(text: T): string {
 }
 
 function isNull<T>(thing: T): boolean {
-	const text = lower(thing).trim();
+	const text = trim(lower(thing));
 	return text === "null" || text === "undefined";
 }

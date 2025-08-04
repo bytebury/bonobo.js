@@ -1,4 +1,4 @@
-import { isNullOrWhitespace, lower } from "../strings";
+import { isNullOrWhitespace, lower, trim } from "../strings";
 import type { UnknownList } from "../types";
 
 /**
@@ -14,8 +14,8 @@ import type { UnknownList } from "../types";
  * isEqual(false, "FALSE"); // false
  */
 export function isEqual(thing1: unknown, thing2: unknown): boolean {
-	thing1 = stringify(thing1).trim();
-	thing2 = stringify(thing2).trim();
+	thing1 = trim(stringify(thing1));
+	thing2 = trim(stringify(thing2));
 
 	return thing1 === thing2;
 }
@@ -34,8 +34,8 @@ export function isEqual(thing1: unknown, thing2: unknown): boolean {
  * isEqual(false, "FALSE"); // true
  */
 export function isEqualIgnoreCase(thing1: unknown, thing2: unknown): boolean {
-	thing1 = lower(stringify(thing1).trim());
-	thing2 = lower(stringify(thing2).trim());
+	thing1 = trim(lower(stringify(thing1)));
+	thing2 = trim(lower(stringify(thing2)));
 
 	return thing1 === thing2;
 }
@@ -64,8 +64,12 @@ export function stringify<T>(thing: T): string {
  *
  * This behaves a little unique and different from `Boolean`.
  * Instead, bonobo treats the strings "false", "null", "undefined", and "0"
- * as `false`. Similar to their "non-string" equivalent. In all other scenarios
- * this function will use `Boolean(thing)`.
+ * as `false`. Similar to their "non-string" equivalent.
+ *
+ * It will also trim all whitespace, so strings of just whitespace are
+ * treated as false.
+ *
+ * In all other scenarios this function will use `Boolean(thing)`.
  *
  * @example
  * bool("false"); // false
@@ -77,7 +81,7 @@ export function stringify<T>(thing: T): string {
  * bool("Hello World"); // true
  */
 export function bool<T>(thing: T | T[]): boolean {
-	const text = lower(String(thing)).trim();
+	const text = trim(lower(String(thing)));
 
 	if (text === "false" || isNullOrWhitespace(String(text)) || text === "0") {
 		return false;
@@ -103,6 +107,7 @@ export function clone<T>(thing: T): T {
  * @example
  * reverse('Apple'); // "elppA"
  * reverse([1, 2, 3]); // [3, 2, 1]
+ * reverse(new Set([1, 2, 3])); // Set[3, 2, 1]
  */
 export function reverse(thing: string): string;
 export function reverse<T>(thing: T[]): T[];
@@ -170,6 +175,6 @@ export function isEmpty(thing: string | UnknownList | unknown): boolean {
  * isNull(false); // false
  */
 export function isNull<T>(thing: T): boolean {
-	const text = lower(thing).trim();
+	const text = trim(lower(thing));
 	return text === "null" || text === "undefined";
 }
