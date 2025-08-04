@@ -12,7 +12,7 @@ import {
 	tomorrow,
 	yearsBetween,
 	yesterday,
-} from "./dates";
+} from "./date";
 
 describe("#addDays", () => {
 	test("should add two days", () => {

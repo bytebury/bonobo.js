@@ -1,5 +1,66 @@
 import { describe, expect, test } from "vitest";
-import { bool, clone, isEmpty, isNull, reverse, stringify } from "./core";
+import {
+	bool,
+	clone,
+	isEmpty,
+	isEqual,
+	isEqualIgnoreCase,
+	isNull,
+	reverse,
+	stringify,
+} from "./core";
+
+describe("#isEqual", () => {
+	test('"1" and 1 should be equal', () => {
+		expect(isEqual("1", 1)).toBe(true);
+	});
+
+	test('{ foo: "bar" } and { foo: "bar" } should be equal', () => {
+		expect(isEqual({ foo: "bar" }, { foo: "bar" })).toBe(true);
+	});
+
+	test("[] and [] should be equal", () => {
+		expect(isEqual([], [])).toBe(true);
+	});
+
+	test("[0] and [1] should not be equal", () => {
+		expect(isEqual([0], [1])).toBe(false);
+	});
+
+	test('false and "  false  " should be equal', () => {
+		expect(isEqual(false, "   false  ")).toBe(true);
+	});
+
+	test('false and "FALSE" should not be equal', () => {
+		expect(isEqual(false, "FALSE")).toBe(false);
+	});
+});
+
+describe("#isEqualIgnoreCase", () => {
+	test('"1" and 1 should be equal', () => {
+		expect(isEqualIgnoreCase("1", 1)).toBe(true);
+	});
+
+	test('{ FOO: "BAR" } and { foo: "bar" } should be equal', () => {
+		expect(isEqualIgnoreCase({ FOO: "BAR" }, { foo: "bar" })).toBe(true);
+	});
+
+	test("[] and [] should be equal", () => {
+		expect(isEqualIgnoreCase([], [])).toBe(true);
+	});
+
+	test("[0] and [1] should not be equal", () => {
+		expect(isEqualIgnoreCase([0], [1])).toBe(false);
+	});
+
+	test('false and "  false  " should be equal', () => {
+		expect(isEqualIgnoreCase(false, "   false  ")).toBe(true);
+	});
+
+	test('false and "FALSE" should not be equal', () => {
+		expect(isEqualIgnoreCase(false, "FALSE")).toBe(true);
+	});
+});
 
 describe("#stringify", () => {
 	test("should stringify a primitive to a string", () => {

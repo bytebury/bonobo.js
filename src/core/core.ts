@@ -1,6 +1,45 @@
 import { isNullOrWhitespace, lowerCase } from "../strings";
 
 /**
+ * Compares two things by turning them into strings, trimming them,
+ * and comparing them strictly.
+ *
+ * @example
+ * isEqual("1", 1); // true
+ * isEqual({foo: "bar"}, {foo: "bar"}); // true
+ * isEqual([], []); // true
+ * isEqual([0], [1]); // false
+ * isEqual(false, " false "); // true
+ * isEqual(false, "FALSE"); // false
+ */
+export function isEqual(thing1: unknown, thing2: unknown): boolean {
+	thing1 = stringify(thing1).trim();
+	thing2 = stringify(thing2).trim();
+
+	return thing1 === thing2;
+}
+
+/**
+ * Compares two things by turning them into strings, trimming and lowercasing
+ * them, and comparing them strictly. Works exactly like `isEqual` except
+ * will lowercase both things before comparing.
+ *
+ * @example
+ * isEqual("1", 1); // true
+ * isEqual({foo: "bar"}, {foo: "bar"}); // true
+ * isEqual([], []); // true
+ * isEqual([0], [1]); // false
+ * isEqual(false, " false "); // true
+ * isEqual(false, "FALSE"); // true
+ */
+export function isEqualIgnoreCase(thing1: unknown, thing2: unknown): boolean {
+	thing1 = lowerCase(stringify(thing1).trim());
+	thing2 = lowerCase(stringify(thing2).trim());
+
+	return thing1 === thing2;
+}
+
+/**
  * Converts the given parameter into the string equivalent.
  *
  * If the thing provided has the type of "object", then this function
