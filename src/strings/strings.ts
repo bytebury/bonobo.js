@@ -2,7 +2,7 @@
  * Determines if the string is null or empty, or comprised only of
  * whitespace. This is the inverse of `hasValue`.
  *
- * @see hasValue
+ * @see isNotNullOrWhitespace
  *
  * @example
  * isNullOrWhitespace(null); // true
@@ -22,7 +22,9 @@ export function isNullOrWhitespace(text: string | null | undefined): boolean {
  *
  * @see isNullOrWhitespace
  */
-export function hasValue(text: string | null | undefined): boolean {
+export function isNotNullOrWhitespace(
+	text: string | null | undefined,
+): boolean {
 	return !isNullOrWhitespace(text);
 }
 

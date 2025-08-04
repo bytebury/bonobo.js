@@ -1,6 +1,6 @@
 import { describe, expect, test } from "vitest";
 import {
-	hasValue,
+	isNotNullOrWhitespace,
 	isNullOrWhitespace,
 	kebabCase,
 	lowerCase,
@@ -36,24 +36,24 @@ describe("#isNullOrWhitespace", () => {
 	});
 });
 
-describe("#hasValue", () => {
+describe("#isNotNullOrWhitespace", () => {
 	test("should have value when the string contains something other than just whitespace", () => {
-		expect(hasValue("something")).toBe(true);
-		expect(hasValue(".")).toBe(true);
-		expect(hasValue(" 0 ")).toBe(true);
+		expect(isNotNullOrWhitespace("something")).toBe(true);
+		expect(isNotNullOrWhitespace(".")).toBe(true);
+		expect(isNotNullOrWhitespace(" 0 ")).toBe(true);
 	});
 
 	test("should not have a value when the string is empty or whitespace", () => {
-		expect(hasValue("\n")).toBe(false);
-		expect(hasValue("")).toBe(false);
-		expect(hasValue(" ")).toBe(false);
+		expect(isNotNullOrWhitespace("\n")).toBe(false);
+		expect(isNotNullOrWhitespace("")).toBe(false);
+		expect(isNotNullOrWhitespace(" ")).toBe(false);
 	});
 
 	test('should not have a value when the string is "null" or "undefined"', () => {
-		expect(hasValue(null)).toBe(false);
-		expect(hasValue("null")).toBe(false);
-		expect(hasValue(undefined)).toBe(false);
-		expect(hasValue("undefined")).toBe(false);
+		expect(isNotNullOrWhitespace(null)).toBe(false);
+		expect(isNotNullOrWhitespace("null")).toBe(false);
+		expect(isNotNullOrWhitespace(undefined)).toBe(false);
+		expect(isNotNullOrWhitespace("undefined")).toBe(false);
 	});
 });
 
