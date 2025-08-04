@@ -45,17 +45,17 @@ export function trim(text: string): string {
  * are considered spaces. Hyphens are respected.
  *
  * @example
- * titleCase("hello world"); // Hello World
- * titleCase("hello-world"); // Hello-world
- * titleCase("hello_world"); // Hello World
- * titleCase("HELLO wORLD"); // Hello World
+ * titleize("hello world"); // Hello World
+ * titleize("hello-world"); // Hello-world
+ * titleize("hello_world"); // Hello World
+ * titleize("HELLO wORLD"); // Hello World
  */
-export function titleCase<T>(text: T): string {
-	return lowerCase(text)
+export function titleize<T>(text: T): string {
+	return lower(text)
 		.replace(/_/g, " ")
 		.split(" ")
 		.map((word) => {
-			return upperCase(word.charAt(0)) + word.slice(1);
+			return upper(word.charAt(0)) + word.slice(1);
 		})
 		.join(" ");
 }
@@ -63,29 +63,29 @@ export function titleCase<T>(text: T): string {
 /**
  * Convert the string to lowercase. An alias for `toLowerCase()`.
  */
-export function lowerCase<T>(text: T): string {
+export function lower<T>(text: T): string {
 	return String(text).toLowerCase();
 }
 
 /**
  * Convert the string to uppercase. An alias for `toUpperCase()`.
  */
-export function upperCase<T>(text: T): string {
+export function upper<T>(text: T): string {
 	return String(text).toUpperCase();
 }
 
 /**
  * Convert the string to kebab-case.
  */
-export function kebabCase<T>(text: T): string {
-	return removePunctuation(lowerCase(text)).trim().replace(/\s+/g, "-");
+export function kebab<T>(text: T): string {
+	return removePunctuation(lower(text)).trim().replace(/\s+/g, "-");
 }
 
 /**
  * Convert the string to snake_case.
  */
-export function snakeCase<T>(text: T): string {
-	return kebabCase(text).replace(/-/g, "_");
+export function snake<T>(text: T): string {
+	return kebab(text).replace(/-/g, "_");
 }
 
 function removePunctuation<T>(text: T): string {
@@ -97,6 +97,6 @@ function removePunctuation<T>(text: T): string {
 }
 
 function isNull<T>(thing: T): boolean {
-	const text = lowerCase(thing).trim();
+	const text = lower(thing).trim();
 	return text === "null" || text === "undefined";
 }
