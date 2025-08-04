@@ -1,10 +1,12 @@
 import { describe, expect, test } from "vitest";
 import {
+	hasValue,
 	isNullOrWhitespace,
 	kebabCase,
 	lowerCase,
 	snakeCase,
 	titleCase,
+	trim,
 	upperCase,
 } from "./strings";
 
@@ -31,6 +33,35 @@ describe("#isNullOrWhitespace", () => {
 
 	test("should return false when the string ends with whitespace", () => {
 		expect(isNullOrWhitespace("foo bar  ")).toBe(false);
+	});
+});
+
+describe("#hasValue", () => {
+	test("should have value when the string contains something other than just whitespace", () => {
+		expect(hasValue("something")).toBe(true);
+		expect(hasValue(".")).toBe(true);
+		expect(hasValue(" 0 ")).toBe(true);
+	});
+
+	test("should not have a value when the string is empty or whitespace", () => {
+		expect(hasValue("\n")).toBe(false);
+		expect(hasValue("")).toBe(false);
+		expect(hasValue(" ")).toBe(false);
+	});
+
+	test('should not have a value when the string is "null" or "undefined"', () => {
+		expect(hasValue(null)).toBe(false);
+		expect(hasValue("null")).toBe(false);
+		expect(hasValue(undefined)).toBe(false);
+		expect(hasValue("undefined")).toBe(false);
+	});
+});
+
+describe("#trim", () => {
+	test("should trim the text exactly like trim", () => {
+		expect(trim(" hello")).toBe("hello");
+		expect(trim(" Hello  World  ")).toBe("Hello  World");
+		expect(trim("hello\n")).toBe("hello");
 	});
 });
 

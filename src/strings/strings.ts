@@ -1,6 +1,8 @@
 /**
  * Determines if the string is null or empty, or comprised only of
- * whitespace.
+ * whitespace. This is the inverse of `hasValue`.
+ *
+ * @see hasValue
  *
  * @example
  * isNullOrWhitespace(null); // true
@@ -12,6 +14,27 @@
  */
 export function isNullOrWhitespace(text: string | null | undefined): boolean {
 	return isNull(text) || String(text).trim().length === 0;
+}
+
+/**
+ * Determines if the string has some value that is not just whitespace.
+ * This is the inverse of `isNullOrWhitespace`.
+ *
+ * @see isNullOrWhitespace
+ */
+export function hasValue(text: string | null | undefined): boolean {
+	return !isNullOrWhitespace(text);
+}
+
+/**
+ * Trims the whitespace from the beginning and the end. This is an
+ * alias for `.trim()`. Useful for when you're mapping over lists.
+ *
+ * @example
+ * [' hello ', ' world '].map(trim); // ['hello', 'world'];
+ */
+export function trim(text: string): string {
+	return text.trim();
 }
 
 /**
