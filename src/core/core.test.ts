@@ -149,6 +149,30 @@ describe("#isEmpty", () => {
 	test("should return false when the list is not empty", () => {
 		expect(isEmpty([0])).toBe(false);
 	});
+
+	test("should return false when there are things in the set", () => {
+		expect(isEmpty(new Set([1, 2, 3]))).toBe(false);
+	});
+
+	test("should return true when the set is empty", () => {
+		expect(isEmpty(new Set())).toBe(true);
+	});
+
+	test("should return false when a map has items", () => {
+		expect(isEmpty(new Map([["hello", "world"]]))).toBe(false);
+	});
+
+	test("should return true when a map is empty", () => {
+		expect(isEmpty(new Map())).toBe(true);
+	});
+
+	test("should return true when an object is empty", () => {
+		expect(isEmpty({})).toBe(true);
+	});
+
+	test("should return false when an object is empty", () => {
+		expect(isEmpty({ foo: "bar " })).toBe(false);
+	});
 });
 
 describe("#isNull", () => {

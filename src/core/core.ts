@@ -1,4 +1,5 @@
 import { isNullOrWhitespace, lower } from "../strings";
+import type { UnknownList } from "../types";
 
 /**
  * Compares two things by turning them into strings, trimming them,
@@ -105,10 +106,18 @@ export function clone<T>(thing: T): T {
  */
 export function reverse(thing: string): string;
 export function reverse<T>(thing: T[]): T[];
-export function reverse<T>(thing: string | T[]): string | T[] {
+export function reverse(thing: Set<unknown>): Set<unknown>;
+export function reverse<T>(
+	thing: string | Set<unknown> | T[],
+): string | Set<unknown> | T[] {
 	if (typeof thing === "string") {
 		return String(thing).split("").reverse().join("");
 	}
+
+	if (thing instanceof Set) {
+		return new Set([...thing].reverse());
+	}
+
 	return thing.reverse();
 }
 
@@ -122,9 +131,29 @@ export function reverse<T>(thing: string | T[]): string | T[] {
  * isEmpty([0]); // false
  * isEmpty(""); // true
  * isEmpty(" "); // false
+ * isEmpty(new Set()); // true
+ * isEmpty({}); // true
+ * isEmpty(new Map()); // true
  */
-export function isEmpty<T>(thing: string | T[]): boolean {
-	return thing.length === 0;
+export function isEmpty(thing: string): boolean;
+export function isEmpty(thing: UnknownList): boolean;
+export function isEmpty(thing: unknown): boolean;
+export function isEmpty(thing: string | UnknownList | unknown): boolean {
+	if (thing === null || thing === undefined) return true;
+
+	if (typeof thing === "string" || Array.isArray(thing)) {
+		return thing.length === 0;
+	}
+
+	if (thing instanceof Map || thing instanceof Set) {
+		return thing.size === 0;
+	}
+
+	if (typeof thing === "object") {
+		return Object.keys(thing).length === 0;
+	}
+
+	return false;
 }
 
 /**
