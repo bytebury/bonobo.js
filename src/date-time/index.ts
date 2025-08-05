@@ -1,2 +1,3 @@
-export * from "./date";
-export * from "./duration";
+export * from "./date.js";
+export * from "./duration.js";
+

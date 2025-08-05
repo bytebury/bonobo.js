@@ -1,4 +1,4 @@
-import { Duration } from "./duration";
+import { Duration } from "./duration.js";
 
 /**
  * Right now. This is an alias for `new Date()`.
@@ -156,5 +156,3 @@ export function isWeekend(date: Date): boolean {
 export function isWeekday(date: Date): boolean {
 	return !isWeekend(date);
 }
-
-
