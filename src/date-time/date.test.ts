@@ -4,6 +4,15 @@ import {
 	addMonths,
 	addYears,
 	daysBetween,
+	isFriday,
+	isMonday,
+	isSaturday,
+	isSunday,
+	isThursday,
+	isTuesday,
+	isWednesday,
+	isWeekday,
+	isWeekend,
 	monthsBetween,
 	subtractDays,
 	subtractMonths,
@@ -136,5 +145,50 @@ describe("#yearsBetween", () => {
 		const start = new Date("2025-09-06");
 		const end = new Date("2005-08-04");
 		expect(yearsBetween(start, end)).toBe(20);
+	});
+});
+
+describe("days of the week", () => {
+	test("should return true for sunday", () => {
+		expect(isSunday(new Date(2025, 7, 3))).toBe(true);
+	});
+
+	test("should return true for monday", () => {
+		expect(isMonday(new Date(2025, 7, 4))).toBe(true);
+	});
+
+	test("should return true for tuesday", () => {
+		expect(isTuesday(new Date(2025, 7, 5))).toBe(true);
+	});
+
+	test("should return true for wednesday", () => {
+		expect(isWednesday(new Date(2025, 7, 6))).toBe(true);
+	});
+
+	test("should return true for thursday", () => {
+		expect(isThursday(new Date(2025, 7, 7))).toBe(true);
+	});
+
+	test("should return true for friday", () => {
+		expect(isFriday(new Date(2025, 7, 8))).toBe(true);
+	});
+
+	test("should return true for saturday", () => {
+		expect(isSaturday(new Date(2025, 7, 9))).toBe(true);
+	});
+
+	test("should return true when date is a weekend", () => {
+		expect(isWeekend(new Date(2025, 7, 7))).toBe(false);
+		expect(isWeekend(new Date(2025, 7, 3))).toBe(true);
+		expect(isWeekend(new Date(2025, 7, 9))).toBe(true);
+	});
+
+	test("should return true when date is a wekeday", () => {
+		expect(isWeekday(new Date(2025, 7, 4))).toBe(true);
+		expect(isWeekday(new Date(2025, 7, 5))).toBe(true);
+		expect(isWeekday(new Date(2025, 7, 6))).toBe(true);
+		expect(isWeekday(new Date(2025, 7, 7))).toBe(true);
+		expect(isWeekday(new Date(2025, 7, 8))).toBe(true);
+		expect(isWeekday(new Date(2025, 7, 9))).toBe(false);
 	});
 });
