@@ -1,3 +1,5 @@
+import type { Optional } from "../types";
+
 /**
  * Determines if the string is null or empty, or comprised only of
  * whitespace.
@@ -16,7 +18,7 @@
  * isNullOrWhitespace("Hello World"); // false
  * isNullOrWhitespace("  .  "); // false
  */
-export function isNullOrWhitespace(text: string | null | undefined): boolean {
+export function isNullOrWhitespace(text: Optional<string>): boolean {
 	return isNull(text) || trim(text as string).length === 0;
 }
 
@@ -30,9 +32,7 @@ export function isNullOrWhitespace(text: string | null | undefined): boolean {
  *
  * @see isNullOrWhitespace
  */
-export function isNotNullOrWhitespace(
-	text: string | null | undefined,
-): boolean {
+export function isNotNullOrWhitespace(text: Optional<string>): boolean {
 	return !isNullOrWhitespace(text);
 }
 
@@ -102,7 +102,7 @@ function removePunctuation<T>(text: T): string {
 		.replace(/[^a-zA-Z0-9\s]/g, "");
 }
 
-function isNull<T>(thing: T): boolean {
+function isNull<T>(thing: Optional<T>): boolean {
 	const text = trim(lower(thing));
 	return text === "null" || text === "undefined";
 }

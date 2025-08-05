@@ -52,3 +52,8 @@ export type UnknownList = readonly unknown[];
  * Represents a set with `unknown` values.
  */
 export type UnknownSet = Set<unknown>;
+
+/**
+ * Represents something that may or may not have a value.
+ */
+export type Optional<T> = T | null | undefined;

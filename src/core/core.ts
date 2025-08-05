@@ -1,5 +1,5 @@
 import { isNullOrWhitespace, lower, trim } from "../strings";
-import type { UnknownList } from "../types";
+import type { Optional, UnknownList } from "../types";
 
 /**
  * Compares two things by turning them into strings, trimming them,
@@ -140,7 +140,7 @@ export function reverse<T>(
  * isEmpty({}); // true
  * isEmpty(new Map()); // true
  */
-export function isEmpty(thing: string): boolean;
+export function isEmpty(thing: Optional<string>): boolean;
 export function isEmpty(thing: UnknownList): boolean;
 export function isEmpty(thing: unknown): boolean;
 export function isEmpty(thing: string | UnknownList | unknown): boolean {
@@ -174,7 +174,7 @@ export function isEmpty(thing: string | UnknownList | unknown): boolean {
  * isNull(0); // false
  * isNull(false); // false
  */
-export function isNull<T>(thing: T): boolean {
+export function isNull<T>(thing: Optional<T>): boolean {
 	const text = trim(lower(thing));
 	return text === "null" || text === "undefined";
 }
