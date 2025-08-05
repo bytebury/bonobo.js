@@ -47,3 +47,8 @@ export type UnknownRecord = Record<PropertyKey, unknown>;
  * about the value.
  */
 export type UnknownList = readonly unknown[];
+
+/**
+ * Represents a set with `unknown` values.
+ */
+export type UnknownSet = Set<unknown>;

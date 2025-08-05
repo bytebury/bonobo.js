@@ -1,6 +1,10 @@
 /**
  * Determines if the string is null or empty, or comprised only of
- * whitespace. This is the inverse of `hasValue`.
+ * whitespace.
+ *
+ * @remarks
+ * Note that the strings `"null"` and `"undefined"` are
+ * considered `null` and `undefined` respectively.
  *
  * @see isNotNullOrWhitespace
  *
@@ -19,6 +23,10 @@ export function isNullOrWhitespace(text: string | null | undefined): boolean {
 /**
  * Determines if the string has some value that is not just whitespace.
  * This is the inverse of `isNullOrWhitespace`.
+ *
+ * @remarks
+ * Note that the strings `"null"` and `"undefined"` are
+ * considered `null` and `undefined` respectively.
  *
  * @see isNullOrWhitespace
  */

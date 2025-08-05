@@ -1,17 +1,29 @@
 import { Duration } from "./duration";
 
+/**
+ * Right now. This is an alias for `new Date()`.
+ */
 export function now(): Date {
 	return new Date();
 }
 
+/**
+ * Today's date at midnight.
+ */
 export function today(): Date {
 	return new Date(now().setHours(0, 0, 0, 0));
 }
 
+/**
+ * Tomorrow's date at midnight.
+ */
 export function tomorrow(): Date {
 	return addDays(today(), 1);
 }
 
+/**
+ * Yesterday's date at midnight.
+ */
 export function yesterday(): Date {
 	return subtractDays(today(), 1);
 }

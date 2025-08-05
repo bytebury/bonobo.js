@@ -83,7 +83,7 @@ export function stringify<T>(thing: T): string {
 export function bool<T>(thing: T | T[]): boolean {
 	const text = trim(lower(String(thing)));
 
-	if (text === "false" || isNullOrWhitespace(String(text)) || text === "0") {
+	if (text === "false" || isNullOrWhitespace(text) || text === "0") {
 		return false;
 	}
 	return Boolean(thing);
@@ -116,7 +116,7 @@ export function reverse<T>(
 	thing: string | Set<unknown> | T[],
 ): string | Set<unknown> | T[] {
 	if (typeof thing === "string") {
-		return String(thing).split("").reverse().join("");
+		return thing.split("").reverse().join("");
 	}
 
 	if (thing instanceof Set) {
