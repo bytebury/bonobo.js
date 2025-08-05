@@ -120,3 +120,41 @@ export function yearsBetween(start: Date, end: Date): number {
 
 	return Math.abs(years);
 }
+
+export function isSunday(date: Date): boolean {
+	return date.getDay() === 0;
+}
+
+export function isMonday(date: Date): boolean {
+	return date.getDay() === 1;
+}
+
+export function isTuesday(date: Date): boolean {
+	return date.getDay() === 2;
+}
+
+export function isWednesday(date: Date): boolean {
+	return date.getDay() === 3;
+}
+
+export function isThursday(date: Date): boolean {
+	return date.getDay() === 4;
+}
+
+export function isFriday(date: Date): boolean {
+	return date.getDay() === 5;
+}
+
+export function isSaturday(date: Date): boolean {
+	return date.getDay() === 6;
+}
+
+export function isWeekend(date: Date): boolean {
+	return isSaturday(date) || isSunday(date);
+}
+
+export function isWeekday(date: Date): boolean {
+	return !isWeekend(date);
+}
+
+
