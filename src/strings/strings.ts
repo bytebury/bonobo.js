@@ -1,4 +1,4 @@
-import type { Optional } from "../types/index.js";
+import type { Optional } from "../types";
 
 /**
  * Determines if the string is null or empty, or comprised only of

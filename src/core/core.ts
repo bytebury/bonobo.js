@@ -1,5 +1,5 @@
-import { isNullOrWhitespace, lower, trim } from "../strings/index.js";
-import type { Optional, UnknownList } from "../types/index.js";
+import { isNullOrWhitespace, lower, trim } from "../strings";
+import type { Optional, UnknownList } from "../types";
 
 /**
  * Compares two things by turning them into strings, trimming them,
