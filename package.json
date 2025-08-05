@@ -1,6 +1,6 @@
 {
 	"name": "@bytebury/bonobo",
-	"version": "0.1.11",
+	"version": "0.2.0",
 	"description": "A civilized and peaceful utility library for TypeScript and ECMAScript",
 	"main": "dist/core/index.js",
 	"exports": {
@@ -27,6 +27,10 @@
 		"./numbers": {
 			"import": "./dist/numbers/index.js",
 			"types": "./dist/numbers/index.d.ts"
+		},
+		"./postal": {
+			"import": "./dist/postal/index.js",
+			"types": "./dist/postal/index.d.ts"
 		}
 	},
 	"scripts": {
@@ -55,3 +59,4 @@
 		"vitest": "^3.2.4"
 	}
 }
+
