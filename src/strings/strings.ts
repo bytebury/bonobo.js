@@ -94,6 +94,40 @@ export function snake<T>(text: T): string {
 	return kebab(text).replace(/-/g, "_");
 }
 
+/**
+ * Returns all of the words in the given text. This will also strip
+ * any punctuation (except apostrophes).
+ *
+ * Shorthand for splitting text with a space and filtering null or whitespace.
+ *
+ * @example
+ * extractWords("Hello World!!!"); // ["Hello", "World"]
+ * extractWords("foo     bar"); // ["foo", "bar"]
+ * extractWords("foo_bar"); // ["foo", "bar"]
+ * extractWords("don't touch that 1"); // ["don't", "touch", "that", "1"]
+ */
+export function extractWords(text: string): string[] {
+	return text
+		.replace(/[-_]/g, " ")
+		.replace(/[^\w\s']/g, "")
+		.split(" ")
+		.filter(isNotNullOrWhitespace)
+		.map(trim);
+}
+
+/**
+ * Returns all of the numbers in the given text.
+ *
+ * @example
+ * extractNumbers("Version 2.0.2"); // ["2", "0", "2"]
+ * extractNumbers("Price $12.32"); // ["12", "32"]
+ * extractNumber("Build 0012"); // ["0012"]
+ * extractNumber("tel:555-555-0001"); // ["555", "555", "0001"]
+ */
+export function extractNumbers(text: string): string[] {
+	return text.match(/\d+/g) ?? [];
+}
+
 function removePunctuation<T>(text: T): string {
 	return String(text)
 		.normalize("NFKD")

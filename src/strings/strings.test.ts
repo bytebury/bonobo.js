@@ -1,5 +1,7 @@
 import { describe, expect, test } from "vitest";
 import {
+	extractNumbers,
+	extractWords,
 	isNotNullOrWhitespace,
 	isNullOrWhitespace,
 	kebab,
@@ -99,12 +101,49 @@ describe("#kebab", () => {
 	});
 });
 
-describe("#snake_case", () => {
+describe("#snake", () => {
 	test("should return the snake_case version of any given string", () => {
 		expect(snake("HELLO WORLD!!")).toBe("hello_world");
 		expect(snake("kebab-case-to-snake-case")).toBe("kebab_case_to_snake_case");
 		expect(snake(" THIS STRING    HAS weird spacing?")).toBe(
 			"this_string_has_weird_spacing",
 		);
+	});
+});
+
+describe("#extractWords", () => {
+	test("should extract the words from a given string", () => {
+		expect(extractWords("Hello, World!!!")).toEqual(["Hello", "World"]);
+		expect(extractWords("Hello-World!!!")).toEqual(["Hello", "World"]);
+		expect(
+			extractWords(
+				"this_is_a_snake_case_string and doesn't not have apostrophe 12?",
+			),
+		).toEqual([
+			"this",
+			"is",
+			"a",
+			"snake",
+			"case",
+			"string",
+			"and",
+			"doesn't",
+			"not",
+			"have",
+			"apostrophe",
+			"12",
+		]);
+	});
+});
+
+describe("#extractNumbers", () => {
+	test("should extract numeric numbers from any given string", () => {
+		expect(extractNumbers("Version 2.0.2")).toEqual(["2", "0", "2"]);
+		expect(extractNumbers("Price $12.32")).toEqual(["12", "32"]);
+		expect(extractNumbers("tel:(555)-012-0011")).toEqual([
+			"555",
+			"012",
+			"0011",
+		]);
 	});
 });

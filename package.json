@@ -1,6 +1,6 @@
 {
 	"name": "@bytebury/bonobo",
-	"version": "0.2.0",
+	"version": "0.2.1",
 	"description": "A civilized and peaceful utility library for TypeScript and ECMAScript",
 	"main": "dist/core/index.js",
 	"exports": {
@@ -59,4 +59,3 @@
 		"vitest": "^3.2.4"
 	}
 }
-
