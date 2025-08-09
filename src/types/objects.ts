@@ -97,20 +97,5 @@ export type OneOrMany<T> = T | T[];
 
 /**
  * Represents a non-empty list.
- *
- * This is the same as `NonEmptyArray`.
- *
- * @see
- * NonEmptyArray
  */
 export type NonEmptyList<T> = [T, ...T[]];
-
-/**
- * Represents a non-empty array.
- *
- * This is the same as `NonEmptyList`.
- *
- * @see
- * NonEmptyList
- */
-export type NonEmptyArray<T> = [T, ...T[]];
