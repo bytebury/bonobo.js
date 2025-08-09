@@ -95,6 +95,14 @@ export function snake<T>(text: T): string {
 }
 
 /**
+ * Removes all non-alphanumeric characters except spaces and returns
+ * the new string.
+ */
+export function alphanumeric(text: string): string {
+	return text.replace(/[^a-z0-9 ]/gi, "");
+}
+
+/**
  * Returns all of the words in the given text. This will also strip
  * any punctuation (except apostrophes).
  *

@@ -12,6 +12,7 @@ import {
 	isNull,
 	reverse,
 	stringify,
+	unique,
 } from "./core";
 
 describe("#isEqual", () => {
@@ -322,5 +323,12 @@ describe("isNotNull", () => {
 		expect(isNotNull([])).toBe(true);
 		expect(isNotNull({})).toBe(true);
 		expect(isNotNull("something else")).toBe(true);
+	});
+});
+
+describe("#unique", () => {
+	test("should return only unique values from the list", () => {
+		expect(unique([1, 2, 3, "3"])).toEqual([1, 2, 3, "3"]);
+		expect(unique([1, 2, 3, 3])).toEqual([1, 2, 3]);
 	});
 });

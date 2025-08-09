@@ -253,3 +253,19 @@ export function isNull<T>(thing: Optional<T>): boolean {
 export function isNotNull<T>(thing: Optional<T>): boolean {
 	return !isNull(thing);
 }
+
+/**
+ * Removes duplicates from an array.
+ */
+export function unique<T>(list: T[]): T[] {
+	return [...new Set(list)];
+}
+
+/**
+ * Pick a random item from an array.
+ */
+export function sample<T>(list: T[]): T | undefined {
+	return list.length
+		? list[Math.floor(Math.random() * list.length)]
+		: undefined;
+}

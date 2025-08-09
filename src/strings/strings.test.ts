@@ -1,5 +1,6 @@
 import { describe, expect, test } from "vitest";
 import {
+	alphanumeric,
 	extractNumbers,
 	extractWords,
 	isNotNullOrWhitespace,
@@ -133,6 +134,12 @@ describe("#extractWords", () => {
 			"apostrophe",
 			"12",
 		]);
+	});
+});
+
+describe("#alphanumeric", () => {
+	test("should remove all non-alphanumeric except whitespace", () => {
+		expect(alphanumeric("Hello World!!")).toBe("Hello World");
 	});
 });
 
