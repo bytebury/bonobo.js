@@ -54,6 +54,11 @@ export type UnknownList = readonly unknown[];
 export type UnknownSet = Set<unknown>;
 
 /**
+ * Represents an `unknown` Map
+ */
+export type UnknownMap = Map<unknown, unknown>;
+
+/**
  * Represents something that may or may not have a value.
  */
 export type Optional<T> = T | null | undefined;
