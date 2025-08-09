@@ -5,6 +5,10 @@ import {
 	isEmpty,
 	isEqual,
 	isEqualIgnoreCase,
+	isNotEmpty,
+	isNotEqual,
+	isNotEqualIgnoreCase,
+	isNotNull,
 	isNull,
 	reverse,
 	stringify,
@@ -36,6 +40,36 @@ describe("#isEqual", () => {
 	});
 });
 
+describe("#isNotEqual", () => {
+	test('"1" and 2 should not be equal', () => {
+		expect(isNotEqual("1", 2)).toBe(true);
+	});
+
+	test('"1" and 1 should be equal', () => {
+		expect(isNotEqual("1", 1)).toBe(false);
+	});
+
+	test('{ foo: "bar" } and { foo: "bar" } should be equal', () => {
+		expect(isNotEqual({ foo: "bar" }, { foo: "bar" })).toBe(false);
+	});
+
+	test("[] and [] should be equal", () => {
+		expect(isNotEqual([], [])).toBe(false);
+	});
+
+	test("[0] and [1] should not be equal", () => {
+		expect(isNotEqual([0], [1])).toBe(true);
+	});
+
+	test('false and "  false  " should be equal', () => {
+		expect(isNotEqual(false, "   false  ")).toBe(false);
+	});
+
+	test('false and "FALSE" should not be equal', () => {
+		expect(isNotEqual(false, "FALSE")).toBe(true);
+	});
+});
+
 describe("#isEqualIgnoreCase", () => {
 	test('"1" and 1 should be equal', () => {
 		expect(isEqualIgnoreCase("1", 1)).toBe(true);
@@ -59,6 +93,32 @@ describe("#isEqualIgnoreCase", () => {
 
 	test('false and "FALSE" should not be equal', () => {
 		expect(isEqualIgnoreCase(false, "FALSE")).toBe(true);
+	});
+});
+
+describe("#isNotEqualIgnoreCase", () => {
+	test('"1" and 1 should be equal', () => {
+		expect(isNotEqualIgnoreCase("1", 1)).toBe(false);
+	});
+
+	test('{ FOO: "BAR" } and { foo: "bar" } should be equal', () => {
+		expect(isNotEqualIgnoreCase({ FOO: "BAR" }, { foo: "bar" })).toBe(false);
+	});
+
+	test("[] and [] should be equal", () => {
+		expect(isNotEqualIgnoreCase([], [])).toBe(false);
+	});
+
+	test("[0] and [1] should not be equal", () => {
+		expect(isNotEqualIgnoreCase([0], [1])).toBe(true);
+	});
+
+	test('false and "  false  " should be equal', () => {
+		expect(isNotEqualIgnoreCase(false, "   false  ")).toBe(false);
+	});
+
+	test('false and "FALSE" should not be equal', () => {
+		expect(isNotEqualIgnoreCase(false, "FALSE")).toBe(false);
 	});
 });
 
@@ -175,6 +235,48 @@ describe("#isEmpty", () => {
 	});
 });
 
+describe("#isNotEmpty", () => {
+	test('should return true when the string is ""', () => {
+		expect(isNotEmpty("")).toBe(false);
+	});
+
+	test('should return false when the string is whitespace " "', () => {
+		expect(isNotEmpty(" ")).toBe(true);
+	});
+
+	test("should return true when the list is empty", () => {
+		expect(isNotEmpty([])).toBe(false);
+	});
+
+	test("should return false when the list is not empty", () => {
+		expect(isNotEmpty([0])).toBe(true);
+	});
+
+	test("should return false when there are things in the set", () => {
+		expect(isNotEmpty(new Set([1, 2, 3]))).toBe(true);
+	});
+
+	test("should return true when the set is empty", () => {
+		expect(isNotEmpty(new Set())).toBe(false);
+	});
+
+	test("should return false when a map has items", () => {
+		expect(isNotEmpty(new Map([["hello", "world"]]))).toBe(true);
+	});
+
+	test("should return true when a map is empty", () => {
+		expect(isNotEmpty(new Map())).toBe(false);
+	});
+
+	test("should return true when an object is empty", () => {
+		expect(isNotEmpty({})).toBe(false);
+	});
+
+	test("should return false when an object is empty", () => {
+		expect(isNotEmpty({ foo: "bar " })).toBe(true);
+	});
+});
+
 describe("#isNull", () => {
 	test('should return true when the string is "null"', () => {
 		expect(isNull("null")).toBe(true);
@@ -196,5 +298,29 @@ describe("#isNull", () => {
 		expect(isNull([])).toBe(false);
 		expect(isNull({})).toBe(false);
 		expect(isNull("something else")).toBe(false);
+	});
+});
+
+describe("isNotNull", () => {
+	test('should return false when the string is "null"', () => {
+		expect(isNotNull("null")).toBe(false);
+	});
+
+	test("should return false when the string is `null`", () => {
+		expect(isNotNull(null)).toBe(false);
+	});
+
+	test("should return false when the string is `undefined`", () => {
+		expect(isNotNull(undefined)).toBe(false);
+	});
+
+	test('should return false when the string is "undefined"', () => {
+		expect(isNotNull("undefined")).toBe(false);
+	});
+
+	test("should return true when the thing is not null or undefined", () => {
+		expect(isNotNull([])).toBe(true);
+		expect(isNotNull({})).toBe(true);
+		expect(isNotNull("something else")).toBe(true);
 	});
 });

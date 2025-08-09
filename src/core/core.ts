@@ -3,7 +3,7 @@ import type { Optional, UnknownList } from "../types";
 
 /**
  * Compares two things by turning them into strings, trimming them,
- * and comparing them strictly.
+ * and comparing them by their string value.
  *
  * @example
  * isEqual("1", 1); // true
@@ -21,23 +21,59 @@ export function isEqual(thing1: unknown, thing2: unknown): boolean {
 }
 
 /**
+ * Compares two things by turning them into strings, trimming them,
+ * and comparing them by their string value.
+ *
+ * @example
+ * isNotEqual("1", 1); // true
+ * isNotEqual({foo: "bar"}, {foo: "bar"}); // true
+ * isNotEqual([], []); // true
+ * isNotEqual([0], [1]); // false
+ * isNotEqual(false, " false "); // true
+ * isNotEqual(false, "FALSE"); // false
+ */
+export function isNotEqual(thing1: unknown, thing2: unknown): boolean {
+	return !isEqual(thing1, thing2);
+}
+
+/**
  * Compares two things by turning them into strings, trimming and lowercasing
- * them, and comparing them strictly. Works exactly like `isEqual` except
+ * them, and comparing the string values. Works exactly like `isEqual` except
  * will lowercase both things before comparing.
  *
  * @example
- * isEqual("1", 1); // true
- * isEqual({foo: "bar"}, {foo: "bar"}); // true
- * isEqual([], []); // true
- * isEqual([0], [1]); // false
- * isEqual(false, " false "); // true
- * isEqual(false, "FALSE"); // true
+ * isEqualIgnoreCase("1", 1); // true
+ * isEqualIgnoreCase({foo: "bar"}, {foo: "bar"}); // true
+ * isEqualIgnoreCase([], []); // true
+ * isEqualIgnoreCase([0], [1]); // false
+ * isEqualIgnoreCase(false, " false "); // true
+ * isEqualIgnoreCase(false, "FALSE"); // true
  */
 export function isEqualIgnoreCase(thing1: unknown, thing2: unknown): boolean {
 	thing1 = trim(lower(stringify(thing1)));
 	thing2 = trim(lower(stringify(thing2)));
 
 	return thing1 === thing2;
+}
+
+/**
+ * Compares two things by turning them into strings, trimming and lowercasing
+ * them, and comparing the string values. Works exactly like `isEqual` except
+ * will lowercase both things before comparing.
+ *
+ * @example
+ * isNotEqualIgnoreCase("1", 1); // false
+ * isNotEqualIgnoreCase({foo: "bar"}, {foo: "bar"}); // false
+ * isNotEqualIgnoreCase([], []); // false
+ * isNotEqualIgnoreCase([0], [1]); // true
+ * isNotEqualIgnoreCase(false, " false "); // false
+ * isNotEqualIgnoreCase(false, "FALSE"); // false
+ */
+export function isNotEqualIgnoreCase(
+	thing1: unknown,
+	thing2: unknown,
+): boolean {
+	return !isEqualIgnoreCase(thing1, thing2);
 }
 
 /**
@@ -162,6 +198,28 @@ export function isEmpty(thing: string | UnknownList | unknown): boolean {
 }
 
 /**
+ * Determines if the given thing is not empty.
+ *
+ * If the thing has no length, then it is considered empty.
+ * So, this will only be true if the thing has a length.
+ *
+ * @example
+ * isNotEmpty([]); // false
+ * isNotEmpty([0]); // true
+ * isNotEmpty(""); // false
+ * isNotEmpty(" "); // true
+ * isNotEmpty(new Set()); // false
+ * isNotEmpty({}); // false
+ * isNotEmpty(new Map()); // false
+ */
+export function isNotEmpty(thing: Optional<string>): boolean;
+export function isNotEmpty(thing: UnknownList): boolean;
+export function isNotEmpty(thing: unknown): boolean;
+export function isNotEmpty(thing: string | UnknownList | unknown): boolean {
+	return !isEmpty(thing);
+}
+
+/**
  * Determines if the given thing is null.
  *
  * Something is null if the string representation is `"null"` or `"undefined"`.
@@ -177,4 +235,21 @@ export function isEmpty(thing: string | UnknownList | unknown): boolean {
 export function isNull<T>(thing: Optional<T>): boolean {
 	const text = trim(lower(thing));
 	return text === "null" || text === "undefined";
+}
+
+/**
+ * Determines if the given thing is null.
+ *
+ * Something is null if the string representation is `"null"` or `"undefined"`.
+ *
+ * @example
+ * isNotNull(null); // false
+ * isNotNull("NULL"); // false
+ * isNotNull("undefined"); // false
+ * isNotNull(undefined); // false
+ * isNotNull(0); // true
+ * isNotNull(false); // true
+ */
+export function isNotNull<T>(thing: Optional<T>): boolean {
+	return !isNull(thing);
 }
