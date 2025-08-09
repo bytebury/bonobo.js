@@ -31,7 +31,7 @@ export function yesterday(): Date {
 /**
  * Adds the given amount of days to the specified date.
  */
-export function addDays(date: Date, days: number): Date {
+export function addDays(date: Date | string | number, days: number): Date {
 	const result = new Date(date);
 	result.setDate(result.getDate() + days);
 	return result;
@@ -40,14 +40,14 @@ export function addDays(date: Date, days: number): Date {
 /**
  * Subtracts the given amount of days from the specified date.
  */
-export function subtractDays(date: Date, days: number): Date {
+export function subtractDays(date: Date | string | number, days: number): Date {
 	return addDays(new Date(date), -days);
 }
 
 /**
  * Adds the given amount of months to the specified date.
  */
-export function addMonths(date: Date, months: number): Date {
+export function addMonths(date: Date | string | number, months: number): Date {
 	const result = new Date(date);
 	result.setMonth(result.getMonth() + months);
 	return result;
@@ -56,39 +56,56 @@ export function addMonths(date: Date, months: number): Date {
 /**
  * Subtracts the given amount of months from the specified date.
  */
-export function subtractMonths(date: Date, months: number): Date {
+export function subtractMonths(
+	date: Date | string | number,
+	months: number,
+): Date {
 	return addMonths(new Date(date), -months);
 }
 
 /**
  * Adds the given amount of years to the specified date.
  */
-export function addYears(date: Date, years: number): Date {
+export function addYears(date: Date | string | number, years: number): Date {
 	return addMonths(new Date(date), years * 12);
 }
 
 /**
  * Subtracts the given amount of yers from the specified date.
  */
-export function subtractYears(date: Date, years: number): Date {
+export function subtractYears(
+	date: Date | string | number,
+	years: number,
+): Date {
 	return addYears(new Date(date), -years);
 }
 
 /**
  * Calculates the days between two dates.
  */
-export function daysBetween(start: Date, end: Date): number {
+export function daysBetween(
+	start: Date | string | number,
+	end: Date | string | number,
+): number {
 	return Math.abs(
-		Math.floor((end.getTime() - start.getTime()) / Duration.days(1)),
+		Math.floor(
+			(new Date(end).getTime() - new Date(start).getTime()) / Duration.days(1),
+		),
 	);
 }
 
 /**
  * Calculates the months between two dates.
  */
-export function monthsBetween(start: Date, end: Date): number {
-	const years = end.getFullYear() - start.getFullYear();
-	const months = end.getMonth() - start.getMonth();
+export function monthsBetween(
+	start: Date | string | number,
+	end: Date | string | number,
+): number {
+	const startDate = new Date(start);
+	const endDate = new Date(end);
+
+	const years = endDate.getFullYear() - startDate.getFullYear();
+	const months = endDate.getMonth() - startDate.getMonth();
 
 	return Math.abs(years * 12 + months);
 }
@@ -101,15 +118,21 @@ export function monthsBetween(start: Date, end: Date): number {
  * yearsBetween(new Date('2007-08-01', '2008-07-31')); // 0
  * yearsBetween(new Date('2007-08-01', '2008-08-01')); // 1
  */
-export function yearsBetween(start: Date, end: Date): number {
-	const years = end.getFullYear() - start.getFullYear();
+export function yearsBetween(
+	start: Date | string | number,
+	end: Date | string | number,
+): number {
+	const startDate = new Date(start);
+	const endDate = new Date(end);
+	const years = endDate.getFullYear() - startDate.getFullYear();
 
 	if (years === 0) return 0;
 
 	// Check if the end date is before the start date
 	const hasDayPassed =
-		end.getMonth() > start.getMonth() ||
-		(end.getMonth() === start.getMonth() && end.getDate() >= start.getDate());
+		endDate.getMonth() > startDate.getMonth() ||
+		(endDate.getMonth() === startDate.getMonth() &&
+			endDate.getDate() >= startDate.getDate());
 
 	if (!hasDayPassed) {
 		if (years < 0) {
@@ -121,40 +144,38 @@ export function yearsBetween(start: Date, end: Date): number {
 	return Math.abs(years);
 }
 
-export function isSunday(date: Date): boolean {
-	return date.getDay() === 0;
+export function isSunday(date: Date | string | number): boolean {
+	return new Date(date).getDay() === 0;
 }
 
-export function isMonday(date: Date): boolean {
-	return date.getDay() === 1;
+export function isMonday(date: Date | string | number): boolean {
+	return new Date(date).getDay() === 1;
 }
 
-export function isTuesday(date: Date): boolean {
-	return date.getDay() === 2;
+export function isTuesday(date: Date | string | number): boolean {
+	return new Date(date).getDay() === 2;
 }
 
-export function isWednesday(date: Date): boolean {
-	return date.getDay() === 3;
+export function isWednesday(date: Date | string | number): boolean {
+	return new Date(date).getDay() === 3;
 }
 
-export function isThursday(date: Date): boolean {
-	return date.getDay() === 4;
+export function isThursday(date: Date | string | number): boolean {
+	return new Date(date).getDay() === 4;
 }
 
-export function isFriday(date: Date): boolean {
-	return date.getDay() === 5;
+export function isFriday(date: Date | string | number): boolean {
+	return new Date(date).getDay() === 5;
 }
 
-export function isSaturday(date: Date): boolean {
-	return date.getDay() === 6;
+export function isSaturday(date: Date | string | number): boolean {
+	return new Date(date).getDay() === 6;
 }
 
-export function isWeekend(date: Date): boolean {
+export function isWeekend(date: Date | string | number): boolean {
 	return isSaturday(date) || isSunday(date);
 }
 
-export function isWeekday(date: Date): boolean {
+export function isWeekday(date: Date | string | number): boolean {
 	return !isWeekend(date);
 }
-
-
