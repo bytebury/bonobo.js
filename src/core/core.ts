@@ -1,5 +1,5 @@
 import { isNullOrWhitespace, lower, trim } from "../strings";
-import type { Optional, UnknownList } from "../types";
+import type { OneOrMany, Optional, UnknownList } from "../types";
 
 /**
  * Compares two things by turning them into strings, trimming them,
@@ -116,7 +116,7 @@ export function stringify<T>(thing: T): string {
  * bool({}); // true
  * bool("Hello World"); // true
  */
-export function bool<T>(thing: T | T[]): boolean {
+export function bool<T>(thing: OneOrMany<T>): boolean {
 	const text = trim(lower(String(thing)));
 
 	if (text === "false" || isNullOrWhitespace(text) || text === "0") {
