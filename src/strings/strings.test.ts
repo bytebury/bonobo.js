@@ -7,6 +7,7 @@ import {
 	isNullOrWhitespace,
 	kebab,
 	lower,
+	numeric,
 	snake,
 	titleize,
 	trim,
@@ -152,5 +153,12 @@ describe("#extractNumbers", () => {
 			"012",
 			"0011",
 		]);
+	});
+});
+
+describe("#numeric", () => {
+	test("should extract only numbers from any given string", () => {
+		expect(numeric("(203)555-5555")).toBe("2035555555");
+		expect(numeric("0.32")).toBe("032");
 	});
 });

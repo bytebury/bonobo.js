@@ -103,6 +103,13 @@ export function alphanumeric(text: string): string {
 }
 
 /**
+ * Removes any non-numeric characters.
+ */
+export function numeric(text: string): string {
+	return text.replace(/[^\d]/g, "");
+}
+
+/**
  * Returns all of the words in the given text. This will also strip
  * any punctuation (except apostrophes).
  *
