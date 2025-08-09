@@ -40,6 +40,11 @@ export function isNotNullOrWhitespace(text: Nullish<string>): boolean {
  * Trims the whitespace from the beginning and the end. This is an
  * alias for `.trim()`. Useful for when you're mapping over lists.
  *
+ * @remarks
+ * This function is safe, which means if you pass `null` or `undefined`,
+ * this function will output an empty string and handle the null check
+ * gracefully.
+ *
  * @example
  * [' hello ', ' world '].map(trim); // ['hello', 'world'];
  */
@@ -51,6 +56,11 @@ export function trim(text: string): string {
  * Converts the string to Title Case. This will capitalize
  * the letter of each word that is separated by a space. Underscores
  * are considered spaces. Hyphens are respected.
+ *
+ * @remarks
+ * This function is safe, which means if you pass `null` or `undefined`,
+ * this function will output an empty string and handle the null check
+ * gracefully.
  *
  * @example
  * titleize("hello world"); // Hello World
@@ -68,6 +78,11 @@ export function titleize(text: string): string {
 
 /**
  * Convert the string to lowercase. An alias for `toLowerCase()`.
+ *
+ * @remarks
+ * This function is safe, which means if you pass `null` or `undefined`,
+ * this function will output an empty string and handle the null check
+ * gracefully.
  */
 export function lower(text: string): string {
 	return safeString(text).toLowerCase();
@@ -75,6 +90,11 @@ export function lower(text: string): string {
 
 /**
  * Convert the string to uppercase. An alias for `toUpperCase()`.
+ *
+ * @remarks
+ * This function is safe, which means if you pass `null` or `undefined`,
+ * this function will output an empty string and handle the null check
+ * gracefully.
  */
 export function upper(text: string): string {
 	return safeString(text).toUpperCase();
@@ -82,6 +102,11 @@ export function upper(text: string): string {
 
 /**
  * Convert the string to kebab-case.
+ *
+ * @remarks
+ * This function is safe, which means if you pass `null` or `undefined`,
+ * this function will output an empty string and handle the null check
+ * gracefully.
  */
 export function kebab(text: string): string {
 	return trim(removePunctuation(lower(text))).replace(/\s+/g, "-");
@@ -89,6 +114,11 @@ export function kebab(text: string): string {
 
 /**
  * Convert the string to snake_case.
+ *
+ * @remarks
+ * This function is safe, which means if you pass `null` or `undefined`,
+ * this function will output an empty string and handle the null check
+ * gracefully.
  */
 export function snake(text: string): string {
 	return kebab(text).replace(/-/g, "_");
@@ -97,6 +127,11 @@ export function snake(text: string): string {
 /**
  * Removes all non-alphanumeric characters except spaces and returns
  * the new string.
+ *
+ * @remarks
+ * This function is safe, which means if you pass `null` or `undefined`,
+ * this function will output an empty string and handle the null check
+ * gracefully.
  */
 export function alphanumeric(text: string): string {
 	return safeString(text).replace(/[^a-z0-9 ]/gi, "");
@@ -104,6 +139,11 @@ export function alphanumeric(text: string): string {
 
 /**
  * Removes any non-numeric characters. This includes spaces.
+ *
+ * @remarks
+ * This function is safe, which means if you pass `null` or `undefined`,
+ * this function will output an empty string and handle the null check
+ * gracefully.
  */
 export function numeric(text: string): string {
 	return safeString(text).replace(/[^\d]/g, "");
