@@ -60,5 +60,57 @@ export type UnknownMap = Map<unknown, unknown>;
 
 /**
  * Represents something that may or may not have a value.
+ *
+ * This is the same as `Nullish`.
+ *
+ * @see
+ * Nullish
  */
 export type Optional<T> = T | null | undefined;
+
+/**
+ * Represents something that may or may not have a value.
+ *
+ * This is the same as `Optional`.
+ *
+ * @see
+ * Optional
+ */
+export type Nullish<T> = T | null | undefined;
+
+/**
+ * Represents any primitive ECMAScript value.
+ */
+export type Primitive =
+	| string
+	| number
+	| boolean
+	| bigint
+	| symbol
+	| null
+	| undefined;
+
+/**
+ * Represents when there can be one or many of someting
+ */
+export type OneOrMany<T> = T | T[];
+
+/**
+ * Represents a non-empty list.
+ *
+ * This is the same as `NonEmptyArray`.
+ *
+ * @see
+ * NonEmptyArray
+ */
+export type NonEmptyList<T> = [T, ...T[]];
+
+/**
+ * Represents a non-empty array.
+ *
+ * This is the same as `NonEmptyList`.
+ *
+ * @see
+ * NonEmptyList
+ */
+export type NonEmptyArray<T> = [T, ...T[]];
