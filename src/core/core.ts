@@ -1,5 +1,5 @@
 import { isNullOrWhitespace, lower, trim } from "../strings";
-import type { OneOrMany, Optional, UnknownList } from "../types";
+import type { Nullish, OneOrMany, UnknownList } from "../types";
 
 /**
  * Compares two things by turning them into strings, trimming them,
@@ -176,7 +176,7 @@ export function reverse<T>(
  * isEmpty({}); // true
  * isEmpty(new Map()); // true
  */
-export function isEmpty(thing: Optional<string>): boolean;
+export function isEmpty(thing: Nullish<string>): boolean;
 export function isEmpty(thing: UnknownList): boolean;
 export function isEmpty(thing: unknown): boolean;
 export function isEmpty(thing: string | UnknownList | unknown): boolean {
@@ -212,7 +212,7 @@ export function isEmpty(thing: string | UnknownList | unknown): boolean {
  * isNotEmpty({}); // false
  * isNotEmpty(new Map()); // false
  */
-export function isNotEmpty(thing: Optional<string>): boolean;
+export function isNotEmpty(thing: Nullish<string>): boolean;
 export function isNotEmpty(thing: UnknownList): boolean;
 export function isNotEmpty(thing: unknown): boolean;
 export function isNotEmpty(thing: string | UnknownList | unknown): boolean {
@@ -232,8 +232,8 @@ export function isNotEmpty(thing: string | UnknownList | unknown): boolean {
  * isNull(0); // false
  * isNull(false); // false
  */
-export function isNull<T>(thing: Optional<T>): boolean {
-	const text = trim(lower(thing));
+export function isNull<T>(thing: Nullish<T>): boolean {
+	const text = String(thing).trim().toLowerCase();
 	return text === "null" || text === "undefined";
 }
 
@@ -250,7 +250,7 @@ export function isNull<T>(thing: Optional<T>): boolean {
  * isNotNull(0); // true
  * isNotNull(false); // true
  */
-export function isNotNull<T>(thing: Optional<T>): boolean {
+export function isNotNull<T>(thing: Nullish<T>): boolean {
 	return !isNull(thing);
 }
 

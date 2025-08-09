@@ -60,21 +60,6 @@ export type UnknownMap = Map<unknown, unknown>;
 
 /**
  * Represents something that may or may not have a value.
- *
- * This is the same as `Nullish`.
- *
- * @see
- * Nullish
- */
-export type Optional<T> = T | null | undefined;
-
-/**
- * Represents something that may or may not have a value.
- *
- * This is the same as `Optional`.
- *
- * @see
- * Optional
  */
 export type Nullish<T> = T | null | undefined;
 

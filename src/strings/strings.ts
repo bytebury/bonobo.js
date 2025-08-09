@@ -1,4 +1,4 @@
-import type { Optional } from "../types";
+import type { Nullish } from "../types";
 
 /**
  * Determines if the string is null or empty, or comprised only of
@@ -18,7 +18,7 @@ import type { Optional } from "../types";
  * isNullOrWhitespace("Hello World"); // false
  * isNullOrWhitespace("  .  "); // false
  */
-export function isNullOrWhitespace(text: Optional<string>): boolean {
+export function isNullOrWhitespace(text: Nullish<string>): boolean {
 	return isNull(text) || trim(text as string).length === 0;
 }
 
@@ -32,7 +32,7 @@ export function isNullOrWhitespace(text: Optional<string>): boolean {
  *
  * @see isNullOrWhitespace
  */
-export function isNotNullOrWhitespace(text: Optional<string>): boolean {
+export function isNotNullOrWhitespace(text: Nullish<string>): boolean {
 	return !isNullOrWhitespace(text);
 }
 
@@ -44,7 +44,7 @@ export function isNotNullOrWhitespace(text: Optional<string>): boolean {
  * [' hello ', ' world '].map(trim); // ['hello', 'world'];
  */
 export function trim(text: string): string {
-	return String(text).trim();
+	return safeString(text).trim();
 }
 
 /**
@@ -58,7 +58,7 @@ export function trim(text: string): string {
  * titleize("hello_world"); // Hello World
  * titleize("HELLO wORLD"); // Hello World
  */
-export function titleize<T>(text: T): string {
+export function titleize(text: string): string {
 	return lower(text)
 		.replace(/_/g, " ")
 		.split(" ")
@@ -69,28 +69,28 @@ export function titleize<T>(text: T): string {
 /**
  * Convert the string to lowercase. An alias for `toLowerCase()`.
  */
-export function lower<T>(text: T): string {
-	return String(text).toLowerCase();
+export function lower(text: string): string {
+	return safeString(text).toLowerCase();
 }
 
 /**
  * Convert the string to uppercase. An alias for `toUpperCase()`.
  */
-export function upper<T>(text: T): string {
-	return String(text).toUpperCase();
+export function upper(text: string): string {
+	return safeString(text).toUpperCase();
 }
 
 /**
  * Convert the string to kebab-case.
  */
-export function kebab<T>(text: T): string {
+export function kebab(text: string): string {
 	return trim(removePunctuation(lower(text))).replace(/\s+/g, "-");
 }
 
 /**
  * Convert the string to snake_case.
  */
-export function snake<T>(text: T): string {
+export function snake(text: string): string {
 	return kebab(text).replace(/-/g, "_");
 }
 
@@ -99,59 +99,34 @@ export function snake<T>(text: T): string {
  * the new string.
  */
 export function alphanumeric(text: string): string {
-	return text.replace(/[^a-z0-9 ]/gi, "");
+	return safeString(text).replace(/[^a-z0-9 ]/gi, "");
 }
 
 /**
- * Removes any non-numeric characters.
+ * Removes any non-numeric characters. This includes spaces.
  */
 export function numeric(text: string): string {
-	return text.replace(/[^\d]/g, "");
+	return safeString(text).replace(/[^\d]/g, "");
 }
 
 /**
- * Returns all of the words in the given text. This will also strip
- * any punctuation (except apostrophes).
- *
- * Shorthand for splitting text with a space and filtering null or whitespace.
- *
- * @example
- * extractWords("Hello World!!!"); // ["Hello", "World"]
- * extractWords("foo     bar"); // ["foo", "bar"]
- * extractWords("foo_bar"); // ["foo", "bar"]
- * extractWords("don't touch that 1"); // ["don't", "touch", "that", "1"]
+ * If the string is null or undefined, this will return an empty string.
+ * Otherwise, this will return the text that was given.
  */
-export function extractWords(text: string): string[] {
-	return text
-		.replace(/[-_]/g, " ")
-		.replace(/[^\w\s']/g, "")
-		.split(" ")
-		.filter(isNotNullOrWhitespace)
-		.map(trim);
+export function safeString(text: Nullish<string>): string {
+	if (text === null || text === undefined) return "";
+	return text;
 }
 
-/**
- * Returns all of the numbers in the given text.
- *
- * @example
- * extractNumbers("Version 2.0.2"); // ["2", "0", "2"]
- * extractNumbers("Price $12.32"); // ["12", "32"]
- * extractNumber("Build 0012"); // ["0012"]
- * extractNumber("tel:555-555-0001"); // ["555", "555", "0001"]
- */
-export function extractNumbers(text: string): string[] {
-	return text.match(/\d+/g) ?? [];
-}
-
-function removePunctuation<T>(text: T): string {
-	return String(text)
+function removePunctuation(text: string): string {
+	return safeString(text)
 		.normalize("NFKD")
 		.replace(/[-_]/g, " ")
 		.replace(/\s+/g, " ")
 		.replace(/[^a-zA-Z0-9\s]/g, "");
 }
 
-function isNull<T>(thing: Optional<T>): boolean {
-	const text = trim(lower(thing));
+function isNull(thing: Nullish<string>): boolean {
+	const text = String(thing).trim().toLowerCase();
 	return text === "null" || text === "undefined";
 }

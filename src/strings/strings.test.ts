@@ -1,13 +1,12 @@
 import { describe, expect, test } from "vitest";
 import {
 	alphanumeric,
-	extractNumbers,
-	extractWords,
 	isNotNullOrWhitespace,
 	isNullOrWhitespace,
 	kebab,
 	lower,
 	numeric,
+	safeString,
 	snake,
 	titleize,
 	trim,
@@ -66,6 +65,7 @@ describe("#trim", () => {
 		expect(trim(" hello")).toBe("hello");
 		expect(trim(" Hello  World  ")).toBe("Hello  World");
 		expect(trim("hello\n")).toBe("hello");
+		expect(trim(null as unknown as string)).toBe("");
 	});
 });
 
@@ -74,6 +74,7 @@ describe("#titleize", () => {
 		expect(titleize("siR isAAC newTON")).toBe("Sir Isaac Newton");
 		expect(titleize(kebab("Sir Isaac Newton"))).toBe("Sir-isaac-newton");
 		expect(titleize(snake("Sir Isaac Newton"))).toBe("Sir Isaac Newton");
+		expect(titleize(null as unknown as string)).toBe("");
 	});
 
 	test('should return "Kebab-case" for "kebab-case"', () => {
@@ -84,12 +85,14 @@ describe("#titleize", () => {
 describe("#upper", () => {
 	test("should convert the string to all uppercase", () => {
 		expect(upper("hello world")).toBe("HELLO WORLD");
+		expect(upper(null as unknown as string)).toBe("");
 	});
 });
 
 describe("#lower", () => {
 	test("should convert the string to all lowercase", () => {
 		expect(lower("HELLO World")).toBe("hello world");
+		expect(lower(null as unknown as string)).toBe("");
 	});
 });
 
@@ -113,52 +116,30 @@ describe("#snake", () => {
 	});
 });
 
-describe("#extractWords", () => {
-	test("should extract the words from a given string", () => {
-		expect(extractWords("Hello, World!!!")).toEqual(["Hello", "World"]);
-		expect(extractWords("Hello-World!!!")).toEqual(["Hello", "World"]);
-		expect(
-			extractWords(
-				"this_is_a_snake_case_string and doesn't not have apostrophe 12?",
-			),
-		).toEqual([
-			"this",
-			"is",
-			"a",
-			"snake",
-			"case",
-			"string",
-			"and",
-			"doesn't",
-			"not",
-			"have",
-			"apostrophe",
-			"12",
-		]);
-	});
-});
-
 describe("#alphanumeric", () => {
 	test("should remove all non-alphanumeric except whitespace", () => {
 		expect(alphanumeric("Hello World!!")).toBe("Hello World");
-	});
-});
-
-describe("#extractNumbers", () => {
-	test("should extract numeric numbers from any given string", () => {
-		expect(extractNumbers("Version 2.0.2")).toEqual(["2", "0", "2"]);
-		expect(extractNumbers("Price $12.32")).toEqual(["12", "32"]);
-		expect(extractNumbers("tel:(555)-012-0011")).toEqual([
-			"555",
-			"012",
-			"0011",
-		]);
+		expect(alphanumeric(null as unknown as string)).toBe("");
 	});
 });
 
 describe("#numeric", () => {
 	test("should extract only numbers from any given string", () => {
-		expect(numeric("(203)555-5555")).toBe("2035555555");
+		expect(numeric("(203) 555-5555")).toBe("2035555555");
 		expect(numeric("0.32")).toBe("032");
+		expect(numeric(null as unknown as string)).toBe("");
+	});
+});
+
+describe("#safeString", () => {
+	test("should return empty strings when the string is null or undefined", () => {
+		expect(safeString(null)).toBe("");
+		expect(safeString(undefined)).toBe("");
+	});
+
+	test("should return the string given when the string is not null or undefined", () => {
+		expect(safeString("null")).toBe("null");
+		expect(safeString("hello world")).toBe("hello world");
+		expect(safeString("HELLO WORLD!!")).toBe("HELLO WORLD!!");
 	});
 });
